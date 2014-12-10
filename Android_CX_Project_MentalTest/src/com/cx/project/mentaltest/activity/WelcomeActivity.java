@@ -35,14 +35,13 @@ public class WelcomeActivity extends Activity{
 			}
 
 		}.start();
-		
-		
 	}
 	
+	/**
+	 * 跳转至主界面
+	 */
 	private void toMainActivity() {
-		
 		startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-		
 	}
 
 }

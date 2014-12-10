@@ -1,0 +1,8 @@
+﻿
+
+今日推荐：
+http://bapi.xinli001.com/ceshi/one-ceshi.json/?key=1f7cdc5432ab50dda2bf6331d4a36ec7
+
+性格测试：（category_id 为参数）0：推荐测试，1：爱情测试，2：性格测试，3：能力测试，4：会员测试，5：专业测试
+http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=2&rows=10&key=1f7cdc5432ab50dda2bf6331d4a36ec7&offset=0&rmd=-1
+
