@@ -1,18 +1,207 @@
 package com.cx.project.mentaltest.activity;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.cx.project.mentaltest.R;
+import com.cx.project.mentaltest.entity.CeShi;
+import com.cx.project.mentaltest.entity.Data;
+import com.cx.project.mentaltest.utils.NetUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
-
+	private static final String URL="http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=2&rows=10&key=1f7cdc5432ab50dda2bf6331d4a36ec7&offset=0&rmd=-1";
+	private static final String URL2="http://news-at.zhihu.com/api/3/stories/latest";
+	
+	private ListView lvTest;
+	
+	
+	//数据相关
+	private CeShi ceshi;
+	private TestAdapter adapter;
+	
+	
+	DisplayImageOptions options;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		options = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.ic_stub)  //设置图片Uri为空或是错误的时候显示的图片
+		.showImageForEmptyUri(R.drawable.ic_empty)  //设置图片Uri为空或是错误的时候显示的图片
+		.showImageOnFail(R.drawable.ic_error)  //设置图片加载/解码过程中错误时候显示的图片
+		.cacheInMemory(true)   //设置下载的图片是否缓存在内存中
+		.cacheOnDisk(true)    //设置下载的图片是否缓存在SD卡中
+		.bitmapConfig(Bitmap.Config.RGB_565)     //设置图片的解码类型
+		.considerExifParams(true)
+//		.displayer(new RoundedBitmapDisplayer(20))
+        .build();  
+		
+		initView();
+	}
+
+	/**
+	 * 初始化界面
+	 */
+	private void initView() {
+		
+		lvTest = (ListView) findViewById(R.id.lv_text);
+		
+		MyAsyncTask task = new MyAsyncTask();
+		task.execute(URL);
+		
+	}
+	
+	/**
+	 * 解析Json字符串。
+	 * @author CxiaoX
+	 *
+	 * 2014年12月11日上午9:04:53
+	 */
+	class MyAsyncTask extends AsyncTask<String, Void, CeShi>{
+
+		@Override
+		protected CeShi doInBackground(String... params) {
+			try {
+				String json=NetUtil.getJson(params[0]);
+				if(json!=null){
+					ceshi = CeShi.parser(new JSONObject(json));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			return ceshi;
+		}
+		
+		@Override
+		protected void onPostExecute(CeShi result) {
+			adapter = new TestAdapter();
+			lvTest.setAdapter(adapter);
+			
+//			adapter.notifyDataSetChanged();
+		}
+		
+	}
+	
+	/**
+	 * 适配器中 每项的控件
+	 * @author CxiaoX
+	 *
+	 * 2014年12月11日上午9:30:13
+	 */
+	private static class ViewHolder {
+		ImageView imgIcon;
+		TextView txTitle;
+		TextView txViewNum;
+		TextView txCommentNum;
+	}
+	
+	/**
+	 * 测试列表所用适配器
+	 * @author CxiaoX
+	 *
+	 * 2014年12月10日下午11:35:53
+	 */
+	class TestAdapter extends BaseAdapter{
+		
+		private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+
+
+		@Override
+		public int getCount() {
+			return ceshi==null?0:ceshi.getData().size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return ceshi.getData().get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			
+			ViewHolder holder;
+			if(convertView==null){
+				convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.list_test_item, parent,false);
+				
+				holder = new ViewHolder();
+				holder.imgIcon = (ImageView) convertView.findViewById(R.id.img_icon);
+				holder.txTitle = (TextView) convertView.findViewById(R.id.tx_title);
+				holder.txViewNum = (TextView) convertView.findViewById(R.id.tx_view);
+				holder.txCommentNum = (TextView) convertView.findViewById(R.id.tx_comment);
+			
+				convertView.setTag(holder);
+			}else{
+				holder = (ViewHolder) convertView.getTag();
+			}
+			
+			Data data = ceshi.getData().get(position);
+			
+			holder.txTitle.setText(data.getTitle());
+			holder.txCommentNum.setText(String.format("%s评论", data.getCommentnum()));
+			holder.txViewNum.setText(String.format("%s人测过", data.getViewnum()));
+			
+			//使用Universal　加载图片
+			ImageLoader.getInstance().displayImage(data.getCover(), holder.imgIcon, options, animateFirstListener);
+
+			
+			return convertView;
+		}
+		
+	}
+	
+	
+	/**
+	 * 使用Universal　加载图片时使用
+	 * @author CxiaoX
+	 *
+	 * 2014年12月11日上午9:33:02
+	 */
+	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+
+		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+
+		@Override
+		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+			if (loadedImage != null) {
+				ImageView imageView = (ImageView) view;
+				boolean firstDisplay = !displayedImages.contains(imageUri);
+				if (firstDisplay) {
+					FadeInBitmapDisplayer.animate(imageView, 500);
+					displayedImages.add(imageUri);
+				}
+			}
+		}
 	}
 
 	
