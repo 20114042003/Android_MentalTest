@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cx.project.mentaltest.R;
+import com.cx.project.mentaltest.custom.CustomTitle;
 import com.cx.project.mentaltest.entity.CeShi;
 import com.cx.project.mentaltest.entity.Data;
 import com.cx.project.mentaltest.utils.NetUtil;
@@ -36,7 +37,7 @@ public class MainActivity extends Activity {
 	private static final String URL2="http://news-at.zhihu.com/api/3/stories/latest";
 	
 	private ListView lvTest;
-	
+	private CustomTitle ctTitle;
 	
 	//数据相关
 	private CeShi ceshi;
@@ -68,6 +69,9 @@ public class MainActivity extends Activity {
 	 * 初始化界面
 	 */
 	private void initView() {
+		
+		ctTitle = (CustomTitle) findViewById(R.id.custom_title);
+		ctTitle.setTitle("主页");
 		
 		lvTest = (ListView) findViewById(R.id.lv_text);
 		
