@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    
+    <declare-styleable name="HeadView" >
+        <attr name="hv_title"      format="string" />
+        <attr name="left_icon"  format="reference" />
+        <attr name="right_icon"  format="reference" />
+        <attr name="show_right"  format="boolean" />
+    </declare-styleable>
+    
+    
+            
+</resources>

@@ -8,10 +8,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cx.project.mentaltest.R;
+import com.cx.project.mentaltest.adapter.MenuItemAdapter;
 import com.cx.project.mentaltest.custom.CustomTitle;
 import com.cx.project.mentaltest.entity.CeShi;
 import com.cx.project.mentaltest.entity.Data;
 import com.cx.project.mentaltest.utils.NetUtil;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -21,18 +23,22 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnItemClickListener{
 	private static final String URL="http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=2&rows=10&key=1f7cdc5432ab50dda2bf6331d4a36ec7&offset=0&rmd=-1";
 	private static final String URL2="http://news-at.zhihu.com/api/3/stories/latest";
 	
@@ -43,7 +49,11 @@ public class MainActivity extends Activity {
 	private CeShi ceshi;
 	private TestAdapter adapter;
 	
+	// 侧滑菜单相关
+	private SlidingMenu menu;
+	private ListView lvItem;
 	
+	//UIL 相关
 	DisplayImageOptions options;
 	
 	@Override
@@ -69,16 +79,53 @@ public class MainActivity extends Activity {
 	 * 初始化界面
 	 */
 	private void initView() {
-		
-		ctTitle = (CustomTitle) findViewById(R.id.custom_title);
-		ctTitle.setTitle("主页");
-		
+		initSlidingMenu();
+		initTitle();
 		lvTest = (ListView) findViewById(R.id.lv_text);
 		
 		MyAsyncTask task = new MyAsyncTask();
 		task.execute(URL);
 		
 	}
+
+	/**
+	 * 初始化 标题栏
+	 */
+	private void initTitle() {
+		ctTitle = (CustomTitle) findViewById(R.id.custom_title);
+		ctTitle.setTitle("首页");
+		ctTitle.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				menu.toggle();
+			}
+		});
+	}
+	
+	/**
+	 * 初始化侧滑菜单
+	 */
+	private void initSlidingMenu() {
+		
+		menu = new SlidingMenu(this);
+		menu.setMode(SlidingMenu.LEFT);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		menu.setShadowDrawable(R.drawable.shadow);
+		menu.setShadowWidth(10);
+		menu.setBehindOffset(50);
+		menu.setBehindWidth(400);
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		menu.setMenu(R.layout.sliding_menu);
+		
+		
+		lvItem = (ListView) findViewById(R.id.lv_thems);
+		lvItem.setAdapter(new MenuItemAdapter(this));
+		lvItem.setOnItemClickListener(this);
+	
+		
+	}
+
 	
 	/**
 	 * 解析Json字符串。
@@ -208,5 +255,34 @@ public class MainActivity extends Activity {
 		}
 	}
 
+
+	/*-----------------menu项 点击监听-----------------*/
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		switch (position) {
+		case 0:
+			menu.toggle();
+			break;
+		case 1:
+			// 每日心理学
+			break;
+		case 2:
+			startActivity(new Intent(this, DispositionActivity.class));
+			//性格测试
+			break;
+		case 3:
+			//职业测试
+			startActivity(new Intent(this, VocationalActivity.class));
+			break;
+
+		default:
+			break;
+		}
+	}
+	/*-----------------menu项 点击监听-----------------*/
+
+	
+	
+	
 	
 }

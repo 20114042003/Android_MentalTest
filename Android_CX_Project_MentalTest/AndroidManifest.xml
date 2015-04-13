@@ -29,6 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.cx.project.mentaltest.activity.MainActivity" />
+        <activity android:name="com.cx.project.mentaltest.activity.DispositionActivity" />
+        <activity android:name="com.cx.project.mentaltest.activity.VocationalActivity" />
     </application>
 
 </manifest>

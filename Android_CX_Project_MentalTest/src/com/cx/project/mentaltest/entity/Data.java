@@ -188,7 +188,7 @@ public class Data {
 					data.setChoice_type(obj.getInt("choice_type"));
 					data.set_id(obj.getString("_id"));
 					data.setAbsolute_url(obj.getString("absolute_url"));
-					data.setBrief(obj.getString("brief"));
+//					data.setBrief(obj.getString("brief"));
 					data.setAd_url1(obj.getString("ad_url1"));
 					data.setCreated(obj.getString("created"));
 					data.setViewnum(obj.getInt("viewnum"));
@@ -196,7 +196,7 @@ public class Data {
 					data.setAd_title2(obj.getString("ad_title2"));
 					data.setQuestionnum(obj.getInt("questionnum"));
 					data.setCover(obj.getString("cover"));
-					data.setCarrynum(obj.getInt("carrynum"));
+//					data.setCarrynum(obj.getInt("carrynum"));
 					data.setRequire_login(obj.getBoolean("require_login"));
 					data.setIs_completed(obj.getBoolean("is_completed"));
 					data.setId(obj.getLong("id"));
