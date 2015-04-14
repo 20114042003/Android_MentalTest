@@ -9,12 +9,15 @@ import com.cx.project.mentaltest.custom.HeadView;
 import com.cx.project.mentaltest.entity.TestItem;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class VocationalActivity extends Activity{
+public class VocationalListActivity extends Activity implements OnItemClickListener{
 	
 	
 	private ListView lvVocational;
@@ -61,6 +64,19 @@ public class VocationalActivity extends Activity{
 	private void initTestList() {
 		lvVocational = (ListView) findViewById(R.id.lv_vocation);
 		lvVocational.setAdapter(new TestItemAdapter(this, itemList));
+		lvVocational.setOnItemClickListener(this);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+		switch (position) {
+		case 0:
+			startActivity(new Intent(this,VocationalTestActivity.class ));
+			break;
+
+		default:
+			break;
+		}
 	}
 	
 	

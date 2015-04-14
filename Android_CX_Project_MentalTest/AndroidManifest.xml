@@ -28,9 +28,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.cx.project.mentaltest.activity.MainActivity" />
-        <activity android:name="com.cx.project.mentaltest.activity.DispositionActivity" />
-        <activity android:name="com.cx.project.mentaltest.activity.VocationalActivity" />
+        <activity android:name="com.cx.project.mentaltest.activity.MainActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="com.cx.project.mentaltest.activity.DispositionActivity"
+            android:screenOrientation="portrait"  />
+        <activity android:name="com.cx.project.mentaltest.activity.VocationalListActivity"
+            android:screenOrientation="portrait"  />
+        <activity android:name="com.cx.project.mentaltest.activity.VocationalTestActivity"
+            android:screenOrientation="portrait"  />
     </application>
 
 </manifest>

@@ -272,7 +272,7 @@ public class MainActivity extends Activity implements OnItemClickListener{
 			break;
 		case 3:
 			//÷∞“µ≤‚ ‘
-			startActivity(new Intent(this, VocationalActivity.class));
+			startActivity(new Intent(this, VocationalListActivity.class));
 			break;
 
 		default:
