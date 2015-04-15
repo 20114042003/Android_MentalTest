@@ -7,6 +7,7 @@ import com.cx.project.mentaltest.R;
 import com.cx.project.mentaltest.adapter.TestItemAdapter;
 import com.cx.project.mentaltest.custom.HeadView;
 import com.cx.project.mentaltest.entity.TestItem;
+import com.cx.project.mentaltest.utils.DataManagerUtil;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,14 +20,14 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class VocationalListActivity extends Activity implements OnItemClickListener{
 	
-	
+	private DataManagerUtil dataManagerUtil;
 	private ListView lvVocational;
 	private List<TestItem> itemList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		dataManagerUtil = new DataManagerUtil(this);
 		setContentView(R.layout.activty_vocational);
 		initParams();
 		initView();
@@ -34,8 +35,16 @@ public class VocationalListActivity extends Activity implements OnItemClickListe
 
 	private void initParams() {
 		itemList = new ArrayList<TestItem>();
-		itemList.add(new TestItem("是不是对未来充满迷茫，你适合什么职业?",R.drawable.vocational_test_1));
-		itemList.add(new TestItem("是不是对未来充满迷茫，你适合什么职业?",R.drawable.vocational_test_1));
+		
+		itemList = TestItem.getItemBySql(0,dataManagerUtil.openDatabase());
+		dataManagerUtil.closeDatabase();
+//		getResources().getdr
+//		itemList.add(new TestItem("是不是对未来充满迷茫，你适合什么职业?",R.drawable.vocational_test_1));
+//		itemList.add(new TestItem("你的心，有多累？",R.drawable.vocational_test_2));
+//		itemList.add(new TestItem("你还会再辞职多少次？",R.drawable.vocational_test_3));
+//		itemList.add(new TestItem("是不是对未来充满迷茫，你适合什么职业?","vocational_test_1.png"));
+//		itemList.add(new TestItem("你的心，有多累？","vocational_test_2.jpeg"));
+//		itemList.add(new TestItem("你还会再辞职多少次？","vocational_test_3.jpg"));
 		
 	}
 

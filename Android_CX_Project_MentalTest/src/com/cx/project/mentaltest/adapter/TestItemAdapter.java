@@ -1,11 +1,16 @@
 package com.cx.project.mentaltest.adapter;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import com.cx.project.mentaltest.R;
 import com.cx.project.mentaltest.entity.TestItem;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +20,15 @@ import android.widget.TextView;
 
 public class TestItemAdapter extends BaseAdapter {
 	
+	
+	private Context context;
 	private List<TestItem> itemList;
 	private LayoutInflater inflater;
 	private ViewHolder holder;
 
 	public TestItemAdapter(Context context, List<TestItem> itemList) {
 		this.itemList = itemList;
-		
+		this.context = context;
 		inflater = LayoutInflater.from(context);
 	}
 
@@ -58,7 +65,8 @@ public class TestItemAdapter extends BaseAdapter {
 		
 		TestItem item = itemList.get(position);
 		holder.txTitle.setText(item.getTitle());
-		holder.imgTest.setImageResource(item.getImageId());
+//		holder.imgTest.setImageResource(item.getImageId());
+		holder.imgTest.setImageBitmap(getImageFromAssetsFile(item.getImagePath()));
 		
 		
 		return view;
@@ -68,5 +76,25 @@ public class TestItemAdapter extends BaseAdapter {
 		TextView txTitle;
 		ImageView imgTest;
 	}
+	
+	
+	 private Bitmap getImageFromAssetsFile(String fileName)  
+	  {  
+	      Bitmap image = null;  
+	      AssetManager am =context.getAssets();  
+	      try  
+	      {  
+	          InputStream is = am.open(fileName);  
+	          image = BitmapFactory.decodeStream(is);  
+	          is.close();  
+	      }  
+	      catch (IOException e)  
+	      {  
+	          e.printStackTrace();  
+	      }  
+	  
+	      return image;  
+	  
+	  }  
 
 }

@@ -82,8 +82,6 @@ public class VocationalTestActivity extends Activity implements OnClickListener{
 
 	private void showQuestion() {
 		Question item = list.get(curQuestionId);
-//		rbAnsA.setChecked(false);
-//		rbAnsB.setChecked(false);
 		
 		txProgress.setText(String.format("½ø¶È%s/%s", curQuestionId+1,list.size()));
 		txQuestion.setText(item.question_content);
@@ -91,8 +89,6 @@ public class VocationalTestActivity extends Activity implements OnClickListener{
 		rbAnsB.setText(item.answer_b);
 		
 		curQuestionId = item.question_id;
-		
-		
 		Log.i(TAG, "curQuestionId ="+ curQuestionId);
 	}
 

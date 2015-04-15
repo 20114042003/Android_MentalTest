@@ -7,6 +7,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.cx.project.mentaltest.Extra;
 import com.cx.project.mentaltest.R;
 import com.cx.project.mentaltest.adapter.MenuItemAdapter;
 import com.cx.project.mentaltest.custom.CustomTitle;
@@ -267,12 +268,17 @@ public class MainActivity extends Activity implements OnItemClickListener{
 			// 每日心理学
 			break;
 		case 2:
-			startActivity(new Intent(this, DispositionActivity.class));
+			startActivity(new Intent(this, DispositionListActivity.class));
 			//性格测试
 			break;
 		case 3:
 			//职业测试
 			startActivity(new Intent(this, VocationalListActivity.class));
+			break;
+		case 4:
+			Intent intent = new Intent(this, TestListActivity.class);
+			intent.putExtra(Extra.TYPE_ID, 2);
+			startActivity(intent);
 			break;
 
 		default:
