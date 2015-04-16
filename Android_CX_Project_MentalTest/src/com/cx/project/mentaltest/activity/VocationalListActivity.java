@@ -3,6 +3,7 @@ package com.cx.project.mentaltest.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cx.project.mentaltest.Extra;
 import com.cx.project.mentaltest.R;
 import com.cx.project.mentaltest.adapter.TestItemAdapter;
 import com.cx.project.mentaltest.custom.HeadView;
@@ -81,6 +82,15 @@ public class VocationalListActivity extends Activity implements OnItemClickListe
 		switch (position) {
 		case 0:
 			startActivity(new Intent(this,VocationalTestActivity.class ));
+			break;
+		case 2:
+			TestItem item = itemList.get(position);
+			int testId = item.getTestId();
+			int typeId = item.getTypeId();
+			Intent intent = new Intent(this, SkipTestActivity.class);
+			intent.putExtra(Extra.TEST_ID, testId);
+			intent.putExtra(Extra.TYPE_ID, typeId);
+			startActivity(intent);
 			break;
 
 		default:

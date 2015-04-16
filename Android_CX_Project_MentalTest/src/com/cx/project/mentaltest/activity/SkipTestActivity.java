@@ -143,7 +143,7 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 	
 	private void showQuestion() {
 		Curitem =getQuestionById(curQuestionId);
-		
+	
 		txProgress.setText(String.format("½ø¶È%s/%s", curQuestionId,list.size()));
 		txQuestion.setText(Curitem.question_content);
 		rbAnsA.setText(Curitem.answer_a);
@@ -212,7 +212,7 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 	private boolean isLetter(String value){
 		if("A".equals(value) || "B".equals(value) ||
 		   "C".equals(value) || "D".equals(value) ||
-		   "E".equals(value)){
+		   "E".equals(value) || "F".equals(value)){
 			myAnswer = value;
 			return true;
 		}
