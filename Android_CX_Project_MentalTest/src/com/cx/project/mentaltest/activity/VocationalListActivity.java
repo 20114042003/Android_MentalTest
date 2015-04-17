@@ -19,6 +19,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * 
+ * @description   职业测试列表 <br />
+ * @author CxiaoX
+ *
+ * 2015年4月18日上午1:12:32
+ */
 public class VocationalListActivity extends Activity implements OnItemClickListener{
 	
 	private DataManagerUtil dataManagerUtil;
@@ -83,6 +90,9 @@ public class VocationalListActivity extends Activity implements OnItemClickListe
 		case 0:
 			startActivity(new Intent(this,VocationalTestActivity.class ));
 			break;
+		case 1:
+			startActivity(new Intent(this,SelectedValueTestActivity.class));
+			break;
 		case 2:
 			TestItem item = itemList.get(position);
 			int testId = item.getTestId();
@@ -92,6 +102,7 @@ public class VocationalListActivity extends Activity implements OnItemClickListe
 			intent.putExtra(Extra.TYPE_ID, typeId);
 			startActivity(intent);
 			break;
+			
 
 		default:
 			break;

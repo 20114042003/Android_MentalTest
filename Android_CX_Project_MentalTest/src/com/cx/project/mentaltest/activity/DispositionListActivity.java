@@ -3,6 +3,7 @@ package com.cx.project.mentaltest.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cx.project.mentaltest.Extra;
 import com.cx.project.mentaltest.R;
 import com.cx.project.mentaltest.adapter.TestItemAdapter;
 import com.cx.project.mentaltest.custom.HeadView;
@@ -18,6 +19,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * 
+ * @description  性格测试列表  <br />
+ * @author CxiaoX
+ *
+ * 2015年4月18日上午1:12:55
+ */
 public class DispositionListActivity extends Activity implements OnItemClickListener{
 	
 	private HeadView headView;
@@ -64,9 +72,17 @@ public class DispositionListActivity extends Activity implements OnItemClickList
 		TestItem item = itemList.get(position);
 		int typeId =   item.getTypeId();
 		int testId = item.getTestId();
-		Intent intent = new Intent(this, SkipTestActivity.class);
-		intent.putExtra(SkipTestActivity.EXTRA_TYPE_ID, typeId);
-		intent.putExtra(SkipTestActivity.EXTRA_TEST_ID, testId);
+		Intent intent=null;
+		if(position==0){
+			intent = new Intent(this, SkipTestActivity.class);
+		}else if(position==2){
+			intent =new Intent(this, OneSelectTestActivity.class);
+		}else{
+			intent = new Intent(this, SkipTestActivity.class);
+		}
+		
+		intent.putExtra(Extra.TYPE_ID, typeId);
+		intent.putExtra(Extra.TEST_ID, testId);
 		startActivity(intent);
 	}
 

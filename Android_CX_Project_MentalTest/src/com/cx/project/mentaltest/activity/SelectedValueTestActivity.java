@@ -2,7 +2,6 @@ package com.cx.project.mentaltest.activity;
 
 import java.util.List;
 
-import com.cx.project.mentaltest.Extra;
 import com.cx.project.mentaltest.R;
 import com.cx.project.mentaltest.custom.HeadView;
 import com.cx.project.mentaltest.entity.Answer;
@@ -20,18 +19,20 @@ import android.widget.TextView;
 
 /**
  * 
- * @description  跳题性测试  <br />
+ * @description   总分性测试 <br />
  * @author CxiaoX
  *
- * 2015年4月18日上午1:06:13
+ * 2015年4月18日上午1:04:43
  */
-public class SkipTestActivity extends Activity implements OnClickListener {
+public class SelectedValueTestActivity extends PortraitActivity implements OnClickListener {
 
-	private static final String TAG ="SkipTestActivity";
+	private static final String TAG ="SelectedValueTestActivity";
+	public static final String EXTRA_TYPE_ID = "type_id";
+	public static final String EXTRA_TEST_ID = "test_id";
 	
 	//参数相关
-	private int typeId ;
-	private int testId;
+	private int typeId =0;
+	private int testId =2;
 	
 	//数据相关
 	private DataManagerUtil datautil;
@@ -39,6 +40,7 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 	private List<Answer> ansList;
 	private Question Curitem;
 	private String myAnswer;
+	private int myAnswerValue;
 	
 	//控件相关
 	private HeadView headView;
@@ -63,8 +65,8 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 	
 
 	private void initParams() {
-		typeId = getIntent().getIntExtra(Extra.TYPE_ID, 1);
-		testId = getIntent().getIntExtra(Extra.TEST_ID, 1);
+//		typeId = getIntent().getIntExtra(EXTRA_TYPE_ID, 1);
+//		testId = getIntent().getIntExtra(EXTRA_TEST_ID, 1);
 		
 		list=Question.getQuestionBySql(typeId, testId, datautil.openDatabase());
 		ansList = Answer.getAnswerBySql(typeId, testId, datautil.openDatabase());
@@ -96,6 +98,15 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 	}
 	
 	private void showAnswer() {
+		
+		if(myAnswerValue<20){
+			myAnswer ="A";
+		}else if(myAnswerValue<25){
+			myAnswer="B";
+		}else{
+			myAnswer="C";
+		}
+		
 		llAnswer.setVisibility(View.VISIBLE);
 		llQuestion.setVisibility(View.GONE);
 		
@@ -154,12 +165,13 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 		txQuestion.setText(Curitem.question_content);
 		rbAnsA.setText(Curitem.answer_a);
 		rbAnsB.setText(Curitem.answer_b);
-		if(Curitem.answer_c!=null&&  !"".equals(Curitem.answer_c)){
-			rbAnsC.setVisibility(View.VISIBLE);
-			rbAnsC.setText(Curitem.answer_c);
-		}else{
-			rbAnsC.setVisibility(View.GONE);
-		}
+		rbAnsC.setText(Curitem.answer_c);
+//		if(Curitem.answer_c!=null&&  !"".equals(Curitem.answer_c)){
+//			rbAnsC.setVisibility(View.VISIBLE);
+//			rbAnsC.setText(Curitem.answer_c);
+//		}else{
+//			rbAnsC.setVisibility(View.GONE);
+//		}
 		
 //		curQuestionId = item.question_id;
 		Log.i(TAG, "curQuestionId ="+ curQuestionId);
@@ -201,13 +213,13 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 //		showQuestion();
 	}
 	
-	private void onClickAnswer(String nextValue){
-		if(isLetter(nextValue)){
-			showAnswer();
-			Log.i(TAG, "myAnswer="+myAnswer+"    给出答案");
-			
+	private void onClickAnswer(String value){
+		
+		myAnswerValue += Integer.parseInt(value);
+		curQuestionId ++;
+		if(curQuestionId>list.size()){
+			 showAnswer();
 		}else{
-			curQuestionId = Integer.valueOf(nextValue) ;
 			showQuestion();
 		}
 	}

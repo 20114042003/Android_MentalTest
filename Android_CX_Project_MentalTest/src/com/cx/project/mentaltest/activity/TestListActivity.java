@@ -18,6 +18,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * 
+ * @description  测试列表类  <br />
+ * @author CxiaoX
+ *
+ * 2015年4月18日上午1:11:57
+ */
 public class TestListActivity extends Activity implements OnClickListener ,OnItemClickListener{
 	
 	
@@ -106,13 +113,8 @@ public class TestListActivity extends Activity implements OnClickListener ,OnIte
 		TestItem item = itemList.get(position);
 		int testId = item.getTestId();
 		Intent intent = new Intent(this, SkipTestActivity.class);
-		
-		
-		
-		
 		intent.putExtra(Extra.TEST_ID, testId);
 		intent.putExtra(Extra.TYPE_ID, typeId);
-		
 		startActivity(intent);
 	}
 

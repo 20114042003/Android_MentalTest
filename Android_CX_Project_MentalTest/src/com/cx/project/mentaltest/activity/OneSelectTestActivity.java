@@ -2,7 +2,6 @@ package com.cx.project.mentaltest.activity;
 
 import java.util.List;
 
-import com.cx.project.mentaltest.Extra;
 import com.cx.project.mentaltest.R;
 import com.cx.project.mentaltest.custom.HeadView;
 import com.cx.project.mentaltest.entity.Answer;
@@ -20,18 +19,18 @@ import android.widget.TextView;
 
 /**
  * 
- * @description  跳题性测试  <br />
+ * @description  一题测试  <br />
  * @author CxiaoX
  *
  * 2015年4月18日上午1:06:13
  */
-public class SkipTestActivity extends Activity implements OnClickListener {
+public class OneSelectTestActivity extends PortraitActivity implements OnClickListener {
 
-	private static final String TAG ="SkipTestActivity";
+	private static final String TAG ="OneSelectTestActivity";
 	
 	//参数相关
-	private int typeId ;
-	private int testId;
+	private int typeId =1;
+	private int testId =3;
 	
 	//数据相关
 	private DataManagerUtil datautil;
@@ -63,8 +62,8 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 	
 
 	private void initParams() {
-		typeId = getIntent().getIntExtra(Extra.TYPE_ID, 1);
-		testId = getIntent().getIntExtra(Extra.TEST_ID, 1);
+//		typeId = getIntent().getIntExtra(EXTRA_TYPE_ID, 1);
+//		testId = getIntent().getIntExtra(EXTRA_TEST_ID, 1);
 		
 		list=Question.getQuestionBySql(typeId, testId, datautil.openDatabase());
 		ansList = Answer.getAnswerBySql(typeId, testId, datautil.openDatabase());
@@ -154,15 +153,14 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 		txQuestion.setText(Curitem.question_content);
 		rbAnsA.setText(Curitem.answer_a);
 		rbAnsB.setText(Curitem.answer_b);
-		if(Curitem.answer_c!=null&&  !"".equals(Curitem.answer_c)){
-			rbAnsC.setVisibility(View.VISIBLE);
-			rbAnsC.setText(Curitem.answer_c);
-		}else{
-			rbAnsC.setVisibility(View.GONE);
-		}
-		
-//		curQuestionId = item.question_id;
-		Log.i(TAG, "curQuestionId ="+ curQuestionId);
+		rbAnsC.setText(Curitem.answer_c);
+//		if(Curitem.answer_c!=null&&  !"".equals(Curitem.answer_c)){
+//			rbAnsC.setVisibility(View.VISIBLE);
+//			rbAnsC.setText(Curitem.answer_c);
+//		}else{
+//			rbAnsC.setVisibility(View.GONE);
+//		}
+//		
 	}
 
 	private void setHeadViewTitle(int typeId){
@@ -201,15 +199,10 @@ public class SkipTestActivity extends Activity implements OnClickListener {
 //		showQuestion();
 	}
 	
-	private void onClickAnswer(String nextValue){
-		if(isLetter(nextValue)){
-			showAnswer();
-			Log.i(TAG, "myAnswer="+myAnswer+"    给出答案");
+	private void onClickAnswer(String value){
+		myAnswer = value;
+		showAnswer();
 			
-		}else{
-			curQuestionId = Integer.valueOf(nextValue) ;
-			showQuestion();
-		}
 	}
 	
 	/**

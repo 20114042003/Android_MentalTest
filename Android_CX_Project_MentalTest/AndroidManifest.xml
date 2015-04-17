@@ -43,6 +43,8 @@
         <activity 
             android:name="com.cx.project.mentaltest.activity.TestListActivity"
             android:screenOrientation="portrait"  />
+        <activity    android:name="com.cx.project.mentaltest.activity.SelectedValueTestActivity"   />
+        <activity    android:name="com.cx.project.mentaltest.activity.OneSelectTestActivity"   />
     </application>
 
 </manifest>
