@@ -26,10 +26,11 @@ public class CustomTitle extends FrameLayout{
 	}
 
 	private void initNavi() {
-		imgNavi = (ImageView) findViewById(R.id.img_navi);
+		imgNavi = (ImageView) findViewById(R.id.img_back_logo);
 		
 	}
 
+	
 	/**
 	 * 初始化标题
 	 */
@@ -44,6 +45,10 @@ public class CustomTitle extends FrameLayout{
 	 */
 	public void setTitle(String title) {
 		txTitle.setText(title);
+	}
+	
+	public void setImageResource(int resId){
+		imgNavi.setImageResource(resId);
 	}
 	
 	

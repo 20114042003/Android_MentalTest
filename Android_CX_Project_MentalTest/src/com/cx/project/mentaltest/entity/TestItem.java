@@ -12,6 +12,7 @@ public class TestItem {
 	private String title;
 	private  int imageId;
 	private String imagePath;
+	private int testType;
 	
 	public TestItem() {
 	}
@@ -21,16 +22,10 @@ public class TestItem {
 		this.title = title;
 		this.imageId = imageId;
 	}
-	
-	
-	
 	public TestItem(String title, String imagePath) {
-		super();
 		this.title = title;
 		this.imagePath = imagePath;
 	}
-
-
 	public TestItem(int testId, String title, int imageId, String imagePath) {
 		this.testId = testId;
 		this.title = title;
@@ -38,12 +33,24 @@ public class TestItem {
 		this.imagePath = imagePath;
 	}
 
+	//get set
+	
 
 	public int getTestId() {
 		return testId;
 	}
 
 	
+
+	public int getTestType() {
+		return testType;
+	}
+
+
+	public void setTestType(int testType) {
+		this.testType = testType;
+	}
+
 
 	public int getTypeId() {
 		return typeId;
@@ -90,10 +97,9 @@ public class TestItem {
 	}
 
 
-	public static List<TestItem> getItemBySql(int typeId,SQLiteDatabase database){
+	public static List<TestItem> getItemByTpye(int typeId,SQLiteDatabase database){
 
 		List<TestItem> testItemList = null;
-		
 		
 		String sql = "select * from t_test_item where type_id=? ";
 		Cursor cursor =database.rawQuery(sql, new String[]{String.valueOf(typeId)});
@@ -105,14 +111,35 @@ public class TestItem {
 				item.title = cursor.getString(cursor.getColumnIndex("test_titel"));
 				item.typeId = cursor.getInt(cursor.getColumnIndex("type_id"));
 				item.testId = cursor.getInt(cursor.getColumnIndex("test_id"));
-				
+				item.testType =cursor.getInt(cursor.getColumnIndex("test_type"));
 				testItemList.add(item);
 			}
 		}
-		
+		cursor.close();
 		return testItemList;
 	}
 	
-	
+	public static List<TestItem> getAllItem( SQLiteDatabase database){
+
+		List<TestItem> testItemList = null;
+		
+		String sql = "select * from t_test_item   ";
+		Cursor cursor =database.rawQuery(sql, new String[]{ });
+		if(cursor.getCount()!=0){
+			testItemList = new ArrayList<TestItem>();
+			while(cursor.moveToNext()){
+				TestItem item = new TestItem();
+				item.imagePath = cursor.getString(cursor.getColumnIndex("test_img_name"));
+				item.title = cursor.getString(cursor.getColumnIndex("test_titel"));
+				item.typeId = cursor.getInt(cursor.getColumnIndex("type_id"));
+				item.testId = cursor.getInt(cursor.getColumnIndex("test_id"));
+				item.testType =cursor.getInt(cursor.getColumnIndex("test_type"));
+				testItemList.add(item);
+			}
+		}
+		cursor.close();
+		database.close();
+		return testItemList;
+	}
 
 }

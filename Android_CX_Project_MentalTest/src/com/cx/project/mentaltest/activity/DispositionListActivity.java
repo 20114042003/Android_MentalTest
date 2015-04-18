@@ -44,7 +44,7 @@ public class DispositionListActivity extends Activity implements OnItemClickList
 	private void initParams() {
 
 		itemList = new ArrayList<TestItem>();
-		itemList = TestItem.getItemBySql(1,dataManagerUtil.openDatabase());
+		itemList = TestItem.getItemByTpye(1,dataManagerUtil.openDatabase());
 		dataManagerUtil.closeDatabase();		
 	}
 
@@ -73,13 +73,11 @@ public class DispositionListActivity extends Activity implements OnItemClickList
 		int typeId =   item.getTypeId();
 		int testId = item.getTestId();
 		Intent intent=null;
-		if(position==0){
+		if(position==0 || position ==1){
 			intent = new Intent(this, SkipTestActivity.class);
 		}else if(position==2){
 			intent =new Intent(this, OneSelectTestActivity.class);
-		}else{
-			intent = new Intent(this, SkipTestActivity.class);
-		}
+		} 
 		
 		intent.putExtra(Extra.TYPE_ID, typeId);
 		intent.putExtra(Extra.TEST_ID, testId);

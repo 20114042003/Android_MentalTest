@@ -9,10 +9,15 @@ import org.json.JSONObject;
 
 import com.cx.project.mentaltest.Extra;
 import com.cx.project.mentaltest.R;
+import com.cx.project.mentaltest.TestType;
 import com.cx.project.mentaltest.adapter.MenuItemAdapter;
+import com.cx.project.mentaltest.adapter.TestItemAdapter;
 import com.cx.project.mentaltest.custom.CustomTitle;
 import com.cx.project.mentaltest.entity.CeShi;
 import com.cx.project.mentaltest.entity.Data;
+import com.cx.project.mentaltest.entity.TestItem;
+import com.cx.project.mentaltest.entity.User;
+import com.cx.project.mentaltest.utils.DataManagerUtil;
 import com.cx.project.mentaltest.utils.NetUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,6 +33,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +41,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,9 +49,10 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements OnItemClickListener{
 	private static final String URL="http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=2&rows=10&key=1f7cdc5432ab50dda2bf6331d4a36ec7&offset=0&rmd=-1";
 	private static final String URL2="http://news-at.zhihu.com/api/3/stories/latest";
-	
+	private static final String TAG ="MainActivity";
 	private ListView lvTest;
 	private CustomTitle ctTitle;
+	private List<TestItem> itemList;
 	
 	//数据相关
 	private CeShi ceshi;
@@ -53,6 +61,7 @@ public class MainActivity extends Activity implements OnItemClickListener{
 	// 侧滑菜单相关
 	private SlidingMenu menu;
 	private ListView lvItem;
+	private Button  btnLogin;
 	
 	//UIL 相关
 	DisplayImageOptions options;
@@ -73,8 +82,20 @@ public class MainActivity extends Activity implements OnItemClickListener{
 //		.displayer(new RoundedBitmapDisplayer(20))
         .build();  
 		
+		
+		intiPareams();
 		initView();
 	}
+
+	
+	
+	
+	private void intiPareams() {
+		itemList = TestItem.getAllItem(new DataManagerUtil(this).openDatabase());
+	}
+
+
+
 
 	/**
 	 * 初始化界面
@@ -83,9 +104,10 @@ public class MainActivity extends Activity implements OnItemClickListener{
 		initSlidingMenu();
 		initTitle();
 		lvTest = (ListView) findViewById(R.id.lv_text);
-		
-		MyAsyncTask task = new MyAsyncTask();
-		task.execute(URL);
+		lvTest.setAdapter(new TestItemAdapter(this, itemList));
+		lvTest.setOnItemClickListener(new homeListOnItemClick());
+//		MyAsyncTask task = new MyAsyncTask();
+//		task.execute(URL);
 		
 	}
 
@@ -95,6 +117,7 @@ public class MainActivity extends Activity implements OnItemClickListener{
 	private void initTitle() {
 		ctTitle = (CustomTitle) findViewById(R.id.custom_title);
 		ctTitle.setTitle("首页");
+		ctTitle.setImageResource(R.drawable.app_icon);
 		ctTitle.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -121,10 +144,29 @@ public class MainActivity extends Activity implements OnItemClickListener{
 		
 		
 		lvItem = (ListView) findViewById(R.id.lv_thems);
-		lvItem.setAdapter(new MenuItemAdapter(this));
-		lvItem.setOnItemClickListener(this);
+		btnLogin = (Button) findViewById(R.id.btn_menu_login);
 	
 		
+		lvItem.setAdapter(new MenuItemAdapter(this));
+		lvItem.setOnItemClickListener(this);
+		btnLogin.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(MainActivity.this,RegisterAndLoginActivity.class));
+			}
+		});
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(User.isLoginState()){
+			btnLogin.setText("已登录");
+		}else{
+			btnLogin.setText("请登录");
+		}
+
 	}
 
 	
@@ -154,6 +196,7 @@ public class MainActivity extends Activity implements OnItemClickListener{
 		protected void onPostExecute(CeShi result) {
 			adapter = new TestAdapter();
 			lvTest.setAdapter(adapter);
+			
 			
 //			adapter.notifyDataSetChanged();
 		}
@@ -287,7 +330,37 @@ public class MainActivity extends Activity implements OnItemClickListener{
 	}
 	/*-----------------menu项 点击监听-----------------*/
 
-	
+	private class homeListOnItemClick implements OnItemClickListener{
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			 TestItem item = itemList.get(position);
+			 Intent intent=null;
+			switch (item.getTestType()) {
+			case TestType.SKIP:
+				intent = new Intent(MainActivity.this, SkipTestActivity.class);
+				break;
+			case TestType.ONE_SELECTE:
+				intent = new Intent(MainActivity.this, OneSelectTestActivity.class);
+				break;
+			case TestType.SELECT_VALUE:
+				intent = new Intent(MainActivity.this, 	SelectedValueTestActivity.class);
+				break;
+			case TestType.VOCATIONL_TEST:
+				intent = new Intent(MainActivity.this, VocationalTestActivity.class);
+				break;
+			default:
+				break;
+			}
+			
+			intent.putExtra(Extra.TEST_ID, item.getTestId());
+			intent.putExtra(Extra.TYPE_ID, item.getTypeId());
+			startActivity(intent);
+			
+			 
+		}
+		
+	}
 	
 	
 	

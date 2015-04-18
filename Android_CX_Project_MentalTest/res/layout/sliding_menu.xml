@@ -10,16 +10,6 @@
         android:layout_height="160dp"
         android:background="@drawable/menu_avatar_bg" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/img_menu_logo"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/img_menu_logo"
-            android:text="请登录"
-            android:textColor="@color/white" />
-
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
@@ -30,21 +20,11 @@
             android:padding="10dp" >
 
             <Button
-                android:id="@+id/btn_menu_register"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/lucency"
-                android:text="注册"
-                android:textColor="@color/white" />
-
-            <Button
                 android:id="@+id/btn_menu_login"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="@color/lucency"
-                android:text="登录"
+                android:text="请登录"
                 android:textColor="@color/white" />
         </LinearLayout>
 

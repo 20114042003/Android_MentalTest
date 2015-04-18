@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.cx.project.mentaltest">
+    <com.cx.project.mentaltest.custom.HeadView 
+        android:id="@+id/head_view" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hv_title="登录"
+         />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/register_and_login_content_bg" >
+
+        <LinearLayout
+            android:id="@+id/ll_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邮箱:"
+                android:textColor="@color/register_and_login_bule"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/et_register_and_login_bg"
+                android:gravity="center"
+                android:hint="输入邮箱号码"
+                android:textColorHint="@color/register_and_login_hint_gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ll_email"
+            android:layout_below="@+id/ll_email"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="密码:"
+                android:textColor="@color/register_and_login_bule"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                
+                android:background="@drawable/et_register_and_login_bg"
+                android:gravity="center"
+                android:hint="输入你的密码"
+                android:textColorHint="@color/register_and_login_hint_gray" 
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+         <LinearLayout
+            android:id="@+id/ll_password1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ll_email"
+            android:layout_below="@+id/ll_password"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确认密码:"
+                android:textColor="@color/register_and_login_bule"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_password1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                
+                android:background="@drawable/et_register_and_login_bg"
+                android:gravity="center"
+                android:hint="确认密码"
+                android:textColorHint="@color/register_and_login_hint_gray" 
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_password"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_register_bg"
+                android:text="注册"
+                android:textColor="@color/register_and_login_bule"
+                android:textSize="20sp" />
+            
+              <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_register_bg"
+                android:text="注销"
+                android:visibility="gone"
+                android:textColor="@color/register_and_login_bule"
+                android:textSize="20sp" />
+              <Button
+                android:id="@+id/btn_sure"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_register_bg"
+                android:text="确认注册"
+                android:visibility="gone"
+                android:textColor="@color/register_and_login_bule"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_register_bg"
+                android:text="登录"
+                android:textColor="@color/register_and_login_bule"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

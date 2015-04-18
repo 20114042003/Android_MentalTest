@@ -44,7 +44,7 @@ public class VocationalListActivity extends Activity implements OnItemClickListe
 	private void initParams() {
 		itemList = new ArrayList<TestItem>();
 		
-		itemList = TestItem.getItemBySql(0,dataManagerUtil.openDatabase());
+		itemList = TestItem.getItemByTpye(0,dataManagerUtil.openDatabase());
 		dataManagerUtil.closeDatabase();
 //		getResources().getdr
 //		itemList.add(new TestItem("是不是对未来充满迷茫，你适合什么职业?",R.drawable.vocational_test_1));

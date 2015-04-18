@@ -49,7 +49,7 @@ public class TestListActivity extends Activity implements OnClickListener ,OnIte
 
 	private void initParams() {
 		typeId = getIntent().getIntExtra(Extra.TYPE_ID, 1);
-		itemList  = TestItem.getItemBySql(typeId, dataManagerUtil.openDatabase());
+		itemList  = TestItem.getItemByTpye(typeId, dataManagerUtil.openDatabase());
 		dataManagerUtil.closeDatabase();
 		
 	}
