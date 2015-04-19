@@ -323,6 +323,10 @@ public class MainActivity extends Activity implements OnItemClickListener{
 			intent.putExtra(Extra.TYPE_ID, 2);
 			startActivity(intent);
 			break;
+		case 5:
+			//ÐÄÀí×ÉÑ¯
+			startActivity(new Intent(this, CounselingActivity.class));
+			break;
 
 		default:
 			break;

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 
-public class WelcomeActivity extends Activity{
+public class WelcomeActivity extends PortraitActivity{
 	private static final String TAG ="WelcomeActivity";
 	
 	@Override

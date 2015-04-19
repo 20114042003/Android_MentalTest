@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.cx.project.mentaltest"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.cx.project.mentaltest.custom.HeadView
+        android:id="@+id/head_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hv_title="心理咨询" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/text_view_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="    心理咨询是指运用心理学的方法，对心理适应方面出现问题并企求解决问题的来访者者提供心理援助的过程。需要解决问题并前来寻求帮助者称为来访者或者咨客，提供帮助的咨询专家称为咨询者。来访者就自身存在的心理不适或心理障碍，通过语言文字等交流媒介，向咨询者进行述说、询问与商讨，在其支持和帮助下，通过共同的讨论找出引起心理问题的原因，分析问题的症结，进而寻求摆脱困境解决问题的条件和对策，以便恢复心理平衡、提高对环境的适应能力、增进身心健康。"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_view_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="   心理咨询的原则："
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_view_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="   （1）时间限定原则：每次咨询时间原则上50分钟左右，初次受理，咨询时间可适当延长。"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_view_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="   （2）保密性原则：指除了来访者和咨询师本人，没有第三人可以了解到咨询的具体内容。"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_view_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="   （3）来者不拒，去者不追原则：来访者来心理中心咨询，要完全出于自愿。"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_view_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="   随着现代化的工作和生活节奏越来越快，人们所面临的压力和困境越来越多，而心理咨询，可以帮助人们挖掘心理潜力，提高自我认识、走出心理阴霾。"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
