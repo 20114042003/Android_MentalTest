@@ -327,6 +327,10 @@ public class MainActivity extends Activity implements OnItemClickListener{
 			//心理咨询
 			startActivity(new Intent(this, CounselingActivity.class));
 			break;
+		case 6:
+			//关于我们
+			startActivity(new Intent(this, AboutAppActivity.class));
+			break;
 
 		default:
 			break;

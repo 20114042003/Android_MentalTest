@@ -48,6 +48,7 @@
         <activity    android:name="com.cx.project.mentaltest.activity.RegisterAndLoginActivity"   />
         <activity    android:name="com.cx.project.mentaltest.activity.CounselingActivity"   />
         <activity    android:name="com.cx.project.mentaltest.activity.IntroductionConsultingActivity"   />
+        <activity    android:name="com.cx.project.mentaltest.activity.AboutAppActivity"   />
     </application>
 
 </manifest>
