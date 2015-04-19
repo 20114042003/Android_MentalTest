@@ -3,9 +3,30 @@ package com.cx.project.mentaltest.activity;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cx.project.mentaltest.Extra;
 import com.cx.project.mentaltest.R;
@@ -22,29 +43,9 @@ import com.cx.project.mentaltest.utils.NetUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnItemClickListener{
 	private static final String URL="http://bapi.xinli001.com/ceshi/ceshis.json/?category_id=2&rows=10&key=1f7cdc5432ab50dda2bf6331d4a36ec7&offset=0&rmd=-1";
@@ -307,27 +308,27 @@ public class MainActivity extends Activity implements OnItemClickListener{
 		case 0:
 			menu.toggle();
 			break;
+//		case 1:
+//			// 每日心理学
+//			break;
 		case 1:
-			// 每日心理学
-			break;
-		case 2:
 			startActivity(new Intent(this, DispositionListActivity.class));
 			//性格测试
 			break;
-		case 3:
+		case 2:
 			//职业测试
 			startActivity(new Intent(this, VocationalListActivity.class));
 			break;
-		case 4:
+		case 3:
 			Intent intent = new Intent(this, TestListActivity.class);
 			intent.putExtra(Extra.TYPE_ID, 2);
 			startActivity(intent);
 			break;
-		case 5:
+		case 4:
 			//心理咨询
 			startActivity(new Intent(this, CounselingActivity.class));
 			break;
-		case 6:
+		case 5:
 			//关于我们
 			startActivity(new Intent(this, AboutAppActivity.class));
 			break;
@@ -369,6 +370,39 @@ public class MainActivity extends Activity implements OnItemClickListener{
 		}
 		
 	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		 if(keyCode == KeyEvent.KEYCODE_BACK)  
+	       {    
+	           exitBy2Click();      //调用双击退出函数  
+	       }  
+	    return false;  
+	}
+	
+	/** 
+	 * 双击退出函数 
+	 */  
+	private static Boolean isExit = false;  
+	  
+	private void exitBy2Click() {  
+	    Timer tExit = null;  
+	    if (isExit == false) {  
+	        isExit = true; // 准备退出  
+	        Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();  
+	        tExit = new Timer();  
+	        tExit.schedule(new TimerTask() {  
+	            @Override  
+	            public void run() {  
+	                isExit = false; // 取消退出  
+	            }  
+	        }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务  
+	  
+	    } else {  
+	        finish();  
+	        System.exit(0);  
+	    }  
+	}  
 	
 	
 	

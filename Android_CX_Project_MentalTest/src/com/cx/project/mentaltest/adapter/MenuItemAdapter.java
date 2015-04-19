@@ -21,7 +21,7 @@ import android.widget.TextView;
  */
 public class MenuItemAdapter extends BaseAdapter{
 	private Context context;
-	private String itemNames[]={"首页","每日心理学","性格测试","职业测试","情感测试","心理咨询","关于我们"};
+	private String itemNames[]={"首页","性格测试","职业测试","情感测试","心理咨询","关于我们"};
 	
 	private ViewHolder viewHolder;
 	
